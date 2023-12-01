@@ -27,8 +27,30 @@ static (string Name, string LastName, int Age, string[]? Pet) EnterUser()
         User.Pet = EnterPet(result);
     }
 
+    User.Colors = EnterConsoleColor(EnterConsoleInt("Укажите кол-во любимых цветов: "));
+
     return User;
 }
+
+// Заполнение массива любимых цветов
+static string[] EnterConsoleColor(int count)
+{
+    var color = new string[count];
+    for (int i = 0; i < color.Length; i++)
+    {
+        while (true)
+        {
+            if(Enum.TryParse(EnterConsoleString($"Введите любимый цвет {i+1}: "), true, out ConsoleColor c))
+            {
+                color[i]=c.ToString();
+                break;
+            }
+            else
+                WriteWarning("Неверное название цвета");
+        }
+    }     
+    return color;
+} 
 
 // Заполнение массива питомцев
 static string[] EnterPet(int count)
