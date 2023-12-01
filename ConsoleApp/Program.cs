@@ -108,3 +108,18 @@ static void WriteWarning(string warningText)
     Console.WriteLine(warningText);
     Console.ForegroundColor = consoleColor;
 }
+
+// Выводим в консоль сообщение об ошибке
+static void WriteColorConsole(string[] Colors)
+{
+    if (Colors.Length != 0)
+    {
+        Console.WriteLine("Ваши любимые цвета: ");
+        var consoleColor = Console.ForegroundColor;
+        foreach (var color in Colors)
+        {
+            Enum.TryParse(color, true, out ConsoleColor c);
+            Console.ForegroundColor = c;
+            Console.WriteLine($"\t {c.ToString()}");
+            Console.ForegroundColor = consoleColor;
+}
