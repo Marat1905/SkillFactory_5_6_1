@@ -1,18 +1,19 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-using System.Net.Http.Headers;
-
+﻿
 var result = EnterUser();
 
-Console.WriteLine($"Фамилия: {result.LastName} \nИмя: {result.Name} \nВозраст: {result.Age}") ;
+Console.WriteLine($"Фамилия: {result.LastName} \nИмя: {result.Name} \nВозраст: {result.Age}");
 
 if (result.Pet != null)
-    Console.WriteLine($"\n Ваши питомцы:\n\t { string.Join("\n\t", result.Pet)}");
+    Console.WriteLine($"\nВаши питомцы:\n\t {string.Join("\n\t ", result.Pet)}");
+
+WriteColorConsole(result.Colors);
 
 
-static (string Name, string LastName, int Age, string[]? Pet) EnterUser()
+
+
+static (string Name, string LastName, int Age, string[]? Pet, string[] Colors) EnterUser()
 {
-    (string Name, string LastName, int Age, string[]? Pet) User;
+    (string Name, string LastName, int Age, string[]? Pet, string[] Colors) User;
 
     User.Name = EnterConsoleString("Введите имя: ");
 
@@ -59,7 +60,7 @@ static string[] EnterPet(int count)
 
     for (int i = 0; i < Pet.Length; i++)
     {
-        Pet[i] = EnterConsoleString("Введите кличку: ");
+        Pet[i] = EnterConsoleString($"Введите кличку питомца {i+1}: ") ;
     }
     return Pet;
 }
@@ -122,4 +123,8 @@ static void WriteColorConsole(string[] Colors)
             Console.ForegroundColor = c;
             Console.WriteLine($"\t {c.ToString()}");
             Console.ForegroundColor = consoleColor;
+        }
+    }
+    else
+        Console.WriteLine("У Вас нет любимых цветов");
 }
